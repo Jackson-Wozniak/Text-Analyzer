@@ -1,0 +1,17 @@
+project/target/
+project/project/
+
+.idea/
+target/
+.bsp/
+
+.project
+.classpath
+.settings/
+*.iml
+
+*.lock
+*.sbt
+*.sbt.lock
+*.class
+*.scala.html
