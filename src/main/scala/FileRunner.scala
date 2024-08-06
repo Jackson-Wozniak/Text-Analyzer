@@ -1,5 +1,6 @@
 import scala.io.{Codec, Source}
 import scala.util.Using
+import JSONUtils._
 
 object FileRunner {
   private val INPUT_MANAGER_FILE: String = "text_files/input_files.txt"
