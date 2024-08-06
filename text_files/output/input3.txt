@@ -1,0 +1,10 @@
+{
+    "lineCount" : 1,
+    "wordCount" : 1,
+    "wordHistogram" : {
+        "A" : 1
+    },
+    "charHistogram" : {
+        "a" : 1
+    }
+}

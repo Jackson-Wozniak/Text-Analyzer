@@ -1,3 +1,6 @@
+import scala.io.{Codec, Source}
+import scala.util.Using
+
 class FileAnalyzer(val filename: String){
   private val INPUT_PATH: String = "text_files/input/"
   var stats: FileStats = new FileStats
@@ -5,10 +8,23 @@ class FileAnalyzer(val filename: String){
   analyze()
 
   private def analyze(): Unit = {
-    stats.lineCount = lineCount
-    stats.wordCount = wordCount
-    stats.wordHistogram = wordHistogram
-    stats.charHistogram = charHistogram
+    populateStats()
+  }
+  
+  private def populateStats(): Unit = {
+    def processLine(line: String): Unit = {
+      val words: Array[String] = line.split(" ")
+      stats.wordCount += words.length
+      words.foreach(stats.addToMap(_))
+    }
+    
+    Using(Source.fromFile(INPUT_PATH + filename)) { file =>
+      file.getLines()
+        .foreach(line => {
+          stats.lineCount += 1
+          processLine(line)
+        })
+    }
   }
 
   private def lineCount: Int =

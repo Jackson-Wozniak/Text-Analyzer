@@ -1,10 +1,22 @@
-import JSONUtils._
+import JSONUtils.*
+
+import scala.collection.mutable
 
 class FileStats {
   var lineCount: Int = 0
   var wordCount: Int = 0
-  var charHistogram: Map[Char, Int] = Map.empty[Char, Int]
-  var wordHistogram: Map[String, Int] = Map.empty[String, Int]
+  private val charHistogram: mutable.Map[Char, Int] = mutable.Map.empty[Char, Int]
+  private val wordHistogram: mutable.Map[String, Int] = mutable.Map.empty[String, Int]
+
+  def addToMap(word: String): Unit = {
+    wordHistogram += word -> (wordHistogram.getOrElse(word, 0) + 1)
+    word.foreach(addToMap)
+  }
+
+  private def addToMap(ch: Char): Unit = {
+    val char = ch.toLower
+    charHistogram += char -> (charHistogram.getOrElse(char, 0) + 1)
+  }
 
   def toJSON: String = {
     val string: StringBuilder = StringBuilder()
