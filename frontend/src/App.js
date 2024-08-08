@@ -1,9 +1,20 @@
 import './styles/App.css';
 import {readOutputNames, retrieveFileContents} from './utils/FileReader';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FileContents from './components/FileContents';
 
 function App() {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const files = await readOutputNames();
+      setFileNames(files);
+    };
+
+    fetchData();
+  }, []);
+
+  const [fileNames, setFileNames] = useState([]);
   const [isOpenFile, setIsOpenFile] = useState(false);
   const [fileContents, setFileContents] = useState(null);
 
@@ -24,7 +35,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={() => openFile()}>Open</button>
+        {fileNames.map((name, index) => (
+          <button key={index} onClick={() => openFile(name)}>{name}</button>
+        ))}
       </header>
     </div>
   );
