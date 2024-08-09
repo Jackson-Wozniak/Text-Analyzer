@@ -1,9 +1,12 @@
 import scala.io.{Codec, Source}
 import scala.util.Using
-import JSONUtils._
+import JSONUtils.*
+
+import java.io.{FileWriter, PrintWriter}
 
 object FileRunner {
   private val INPUT_MANAGER_FILE: String = "text_files/input_files.txt"
+  val OUTPUT_MANAGER_FILE: String = "text_files/output_files.txt"
 
   /*
   Components:
@@ -13,12 +16,16 @@ object FileRunner {
     TextRunner/Manager -> handles the read/writes of all files in the input
    */
   def main(args: Array[String]): Unit = {
+    new PrintWriter(FileRunner.OUTPUT_MANAGER_FILE).close()
+
+    val fileAnalyzers: List[FileAnalyzer] = FileRunner.fileAnalyzers
     fileAnalyzers
       .map(analyzer => new StatWriter(analyzer.stats, analyzer.filename))
       .foreach { writer =>
         writer.appendToOutputManager()
         writer.writeStatistics()
       }
+    new FileAggregator(fileAnalyzers).writeStatistics()
   }
 
   private def fileAnalyzers: List[FileAnalyzer] =

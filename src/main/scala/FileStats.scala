@@ -5,8 +5,8 @@ import scala.collection.mutable
 class FileStats {
   var lineCount: Int = 0
   var wordCount: Int = 0
-  private val charHistogram: mutable.Map[Char, Int] = mutable.Map.empty[Char, Int]
-  private val wordHistogram: mutable.Map[String, Int] = mutable.Map.empty[String, Int]
+  val charHistogram: mutable.Map[Char, Int] = mutable.Map.empty[Char, Int]
+  val wordHistogram: mutable.Map[String, Int] = mutable.Map.empty[String, Int]
 
   def addToMap(word: String): Unit = {
     wordHistogram += word -> (wordHistogram.getOrElse(word, 0) + 1)
