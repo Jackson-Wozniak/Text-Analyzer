@@ -1,5 +1,5 @@
 import './styles/App.css';
-import {readOutputNames, retrieveFileContents} from './utils/FileReader';
+import {readOutputNames, retrieveFileContents, FileData} from './utils/FileReader';
 import { useState, useEffect } from 'react';
 import FileContents from './components/FileContents';
 
@@ -18,9 +18,11 @@ function App() {
   const [isOpenFile, setIsOpenFile] = useState(false);
   const [fileContents, setFileContents] = useState(null);
 
-  function openFile(){
+  async function openFile(){
+    let data = await retrieveFileContents("");
+    setFileContents(data);
+    console.log(fileContents);
     setIsOpenFile(true);
-    setFileContents(retrieveFileContents(""));
   }
 
   function closeFile(){
@@ -29,7 +31,7 @@ function App() {
   }
 
   if(isOpenFile){
-    return <FileContents contents={fileContents} closeFile={closeFile}/>
+    return <FileContents content={fileContents} closeFile={closeFile}/>
   }
 
   return (
