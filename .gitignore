@@ -17,3 +17,5 @@ target/
 *.scala.html
 
 frontend/node_modules
+
+*.exe
