@@ -15,7 +15,9 @@ typedef struct CHAR_MAP{
 } CHAR_MAP;
 
 typedef struct TEXT_FILE{
+    char* filename;
     int line_count;
     int word_count;
     struct CHAR_MAP* char_histogram;
 } TEXT_FILE;
+
