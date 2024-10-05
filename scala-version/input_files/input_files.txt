@@ -1,3 +1,4 @@
 ../input_files/files/input1.txt
-../input_files/files/input2.txt
 ../input_files/files/input3.txt
+../input_files/files/file1.txt
+../input_files/files/input2.txt
